@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{F60F37EC-DE01-411C-BB5E-BD1232486A84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Applications", "2 - Applications", "{2A537F69-9B44-487B-8748-0DFF6375E2A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domains", "3 - Domains", "{5108F4C5-4E27-4B62-81CE-D24F03A39BBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infras", "4 - Infras", "{F2D665F1-BD57-44B2-BC47-ADC3DD07876E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 - APIs", "2.1 - APIs", "{88302900-118C-4E73-9C25-714A5C7D15E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueCapricho.Application", "src\QueCapricho.Application\QueCapricho.Application.csproj", "{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueCapricho.Domain", "src\QueCapricho.Domain\QueCapricho.Domain.csproj", "{642D355D-AB40-4E1E-AEFA-73C823A2008E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.4 - Infra.Data", "1.4 - Infra.Data", "{F8DAD3CA-6016-4ECF-B2B5-B8E4237C4C9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueCapricho.Infra.Data", "src\QueCapricho.Infra.Data\QueCapricho.Infra.Data.csproj", "{A3C63B47-605F-4EDE-BAA7-FF467B76B356}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueCapricho.Service.Api", "src\QueCapricho.Service.Api\QueCapricho.Service.Api.csproj", "{AFB5E290-E69B-4B82-BC06-83D8C8A80F50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{642D355D-AB40-4E1E-AEFA-73C823A2008E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{642D355D-AB40-4E1E-AEFA-73C823A2008E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{642D355D-AB40-4E1E-AEFA-73C823A2008E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{642D355D-AB40-4E1E-AEFA-73C823A2008E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C63B47-605F-4EDE-BAA7-FF467B76B356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C63B47-605F-4EDE-BAA7-FF467B76B356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C63B47-605F-4EDE-BAA7-FF467B76B356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C63B47-605F-4EDE-BAA7-FF467B76B356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB5E290-E69B-4B82-BC06-83D8C8A80F50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB5E290-E69B-4B82-BC06-83D8C8A80F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB5E290-E69B-4B82-BC06-83D8C8A80F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB5E290-E69B-4B82-BC06-83D8C8A80F50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88302900-118C-4E73-9C25-714A5C7D15E7} = {F60F37EC-DE01-411C-BB5E-BD1232486A84}
+		{1A04A8BA-EF18-4BF8-97C1-62790B9B6AF2} = {2A537F69-9B44-487B-8748-0DFF6375E2A7}
+		{642D355D-AB40-4E1E-AEFA-73C823A2008E} = {5108F4C5-4E27-4B62-81CE-D24F03A39BBC}
+		{F8DAD3CA-6016-4ECF-B2B5-B8E4237C4C9B} = {F2D665F1-BD57-44B2-BC47-ADC3DD07876E}
+		{A3C63B47-605F-4EDE-BAA7-FF467B76B356} = {F8DAD3CA-6016-4ECF-B2B5-B8E4237C4C9B}
+		{AFB5E290-E69B-4B82-BC06-83D8C8A80F50} = {88302900-118C-4E73-9C25-714A5C7D15E7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C02C8298-7C7E-489D-BB40-8D7791C5A2B1}
+	EndGlobalSection
+EndGlobal
