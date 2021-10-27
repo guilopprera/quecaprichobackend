@@ -12,9 +12,11 @@ namespace QueCapricho.Infra.Data.Configurations
             builder.Property(c => c.ClienteId).ValueGeneratedOnAdd();
             builder.Property(c => c.Nome).IsUnicode(false).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Email).IsUnicode(false).HasMaxLength(100).IsRequired();
+            builder.Property(c => c.Endereco).IsUnicode(false).HasMaxLength(100).IsRequired();
+            builder.Property(c => c.TelefoneCelular).IsUnicode(false).HasMaxLength(15);
+            builder.Property(c => c.TelefoneFixo).IsUnicode(false).HasMaxLength(14);
+            builder.Property(c => c.Email).IsUnicode(false).HasMaxLength(100).IsRequired();
             builder.Property(c => c.CPF).IsUnicode(false).IsUnicode(false).HasMaxLength(14).IsRequired();
-            builder.Ignore(c => c.Telefones);
-            builder.Ignore(c => c.Enderecos);
         }
     }
 }

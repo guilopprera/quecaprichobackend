@@ -11,5 +11,6 @@ namespace QueCapricho.Application.Interfaces
         void Remover(int produtoId);
         Produto Obter(int produtoId);
         List<Produto> ObterTodos();
+        List<Produto> Pesquisar(string textoPesquisa);
     }
 }

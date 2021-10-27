@@ -38,7 +38,7 @@ namespace QueCapricho.Infra.Data.Repositories
         {
             var estoqueProdutoDb = _context.Estoques.FirstOrDefault(e => e.ProdutoId == estoque.ProdutoId);
 
-            estoqueProdutoDb.Quantidade= estoque.Quantidade;
+            estoqueProdutoDb.Quantidade = estoque.Quantidade;
 
             _context.Entry(estoqueProdutoDb).State = EntityState.Modified;
             _context.SaveChanges();
@@ -57,25 +57,29 @@ namespace QueCapricho.Infra.Data.Repositories
         public Produto Obter(int produtoId)
         {
             return _context.Produtos
-                .Include(p=> p.ProdutoFotos)
+                .Include(p => p.ProdutoFotos)
                 .FirstOrDefault(p => p.ProdutoId == produtoId);
         }
 
         public List<Produto> ObterTodos()
         {
-            return _context.Produtos.Include(p => p.CategoriaProduto)
-                .GroupJoin(_context.ProdutoFotos, p => p.ProdutoId, pf => pf.ProdutoId, (p, pf) => new { Produto = p, ProdutoFoto = pf })
-                .Select(join => new Produto
-                {
-                    ProdutoId = join.Produto.ProdutoId,
-                    Nome = join.Produto.Nome,
-                    Valor = join.Produto.Valor,
-                    Ativo = join.Produto.Ativo,
-                    Apagado = join.Produto.Apagado,
-                    ProdutoFotos = join.ProdutoFoto.ToList()
-                })
-                .Where(p => !p.Apagado)
+            return _context.Produtos
+                .Include(p => p.CategoriaProduto)
                 .ToList();
+        }
+
+        public List<Produto> Pesquisar(string textoPesquisa)
+        {
+            return _context.Produtos
+                .Where(p => (string.IsNullOrEmpty(textoPesquisa) ? p.ProdutoId > 0 : p.Nome.Contains(textoPesquisa.Trim())) && !p.Apagado)
+                .Select(
+                p => new Produto
+                {
+                    ProdutoId = p.ProdutoId,
+                    Nome = p.Nome,
+                    CategoriaProduto = p.CategoriaProduto,
+                    Valor = p.Valor
+                }).ToList();
         }
     }
 }

@@ -58,5 +58,10 @@ namespace QueCapricho.Application.Services
         {
             return _produtoRepository.ObterTodos();
         }
+
+        public List<Produto> Pesquisar(string textoPesquisa)
+        {
+            return _produtoRepository.Pesquisar(textoPesquisa);
+        }
     }
 }

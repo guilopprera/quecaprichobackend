@@ -13,7 +13,6 @@ namespace QueCapricho.Infra.Data.Context
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Encomenda> Encomendas { get; set; }
         public DbSet<EncomendaProduto> EncomendaProdutos { get; set; }
-        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Estoque> Estoques { get; set; }
         public DbSet<Foto> Fotos { get; set; }
         public DbSet<Log> Logs { get; set; }
@@ -21,7 +20,6 @@ namespace QueCapricho.Infra.Data.Context
         public DbSet<ProdutoFoto> ProdutoFotos { get; set; }
         public DbSet<Saida> Saidas { get; set; }
         public DbSet<SaidaProduto> SaidaProdutos { get; set; }
-        public DbSet<Telefone> Telefones { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +30,6 @@ namespace QueCapricho.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ClienteConfiguration());
             modelBuilder.ApplyConfiguration(new EncomendaConfiguration());
             modelBuilder.ApplyConfiguration(new EncomendaProdutoConfiguration());
-            modelBuilder.ApplyConfiguration(new EnderecoConfiguration());
             modelBuilder.ApplyConfiguration(new EstoqueConfiguration());
             modelBuilder.ApplyConfiguration(new FotoConfiguration());
             modelBuilder.ApplyConfiguration(new LogConfiguration());
@@ -40,7 +37,6 @@ namespace QueCapricho.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ProdutoFotoConfiguration());
             modelBuilder.ApplyConfiguration(new SaidaConfiguration());
             modelBuilder.ApplyConfiguration(new SaidaProdutoConfiguration());
-            modelBuilder.ApplyConfiguration(new TelefoneConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             #endregion
             base.OnModelCreating(modelBuilder);

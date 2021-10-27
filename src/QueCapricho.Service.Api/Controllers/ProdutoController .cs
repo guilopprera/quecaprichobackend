@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
 using System.Collections.Generic;
 
 namespace QueCapricho.Service.Api.Controllers
 {
-    [DisableCors]
     [ApiController]
     [Route("api/produto")]
     public class ProdutoController : Controller
@@ -57,6 +55,13 @@ namespace QueCapricho.Service.Api.Controllers
         public ActionResult<List<Produto>> ObterTodos()
         {
             return _produtoAppService.ObterTodos();
+        }
+
+        [HttpGet]
+        [Route("Pesquisar/{texto}")]
+        public ActionResult<List<Produto>> Pesquisar(string texto)
+        {
+            return _produtoAppService.Pesquisar(texto);
         }
     }
 }

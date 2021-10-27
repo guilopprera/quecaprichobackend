@@ -10,7 +10,6 @@ namespace QueCapricho.Infra.Data.Configurations
         {
             builder.HasKey(c => c.ProdutoId);
             builder.Property(c => c.ProdutoId).ValueGeneratedOnAdd();
-            builder.Property(c => c.CategoriaProdutoId).IsRequired();
             builder.Property(c => c.Nome).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Valor).IsRequired().HasPrecision(10, 2);
             builder.Property(c => c.Ativo).IsRequired();

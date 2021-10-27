@@ -27,8 +27,11 @@ namespace QueCapricho.Infra.Data.Repositories
             var clienteDb = _context.Clientes.FirstOrDefault(c => c.ClienteId == cliente.ClienteId);
 
             clienteDb.Nome = cliente.Nome;
-            clienteDb.CPF = cliente.CPF;
             clienteDb.Email = cliente.Email;
+            clienteDb.CPF = cliente.CPF;
+            clienteDb.Endereco = cliente.Endereco;
+            clienteDb.TelefoneCelular = cliente.TelefoneCelular;
+            clienteDb.TelefoneFixo = cliente.TelefoneFixo;
 
             _context.Entry(clienteDb).State = EntityState.Modified;
             _context.SaveChanges();

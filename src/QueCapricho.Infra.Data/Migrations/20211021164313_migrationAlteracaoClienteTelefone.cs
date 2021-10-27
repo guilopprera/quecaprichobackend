@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QueCapricho.Infra.Data.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class migrationAlteracaoClienteTelefone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,28 +69,14 @@ namespace QueCapricho.Infra.Data.Migrations
                     Nome = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     CPF = table.Column<string>(type: "varchar(14)", unicode: false, maxLength: 14, nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    Apagado = table.Column<bool>(type: "bit", nullable: false)
+                    Apagado = table.Column<bool>(type: "bit", nullable: false),
+                    Endereco = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
+                    TelefoneCelular = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true),
+                    TelefoneFixo = table.Column<string>(type: "varchar(14)", unicode: false, maxLength: 14, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clientes", x => x.ClienteId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Enderecos",
-                columns: table => new
-                {
-                    EnderecoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Logradouro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Numero = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,27 +156,13 @@ namespace QueCapricho.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Telefones",
-                columns: table => new
-                {
-                    TelefoneId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteId = table.Column<int>(type: "int", nullable: false),
-                    Numero = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Telefones", x => x.TelefoneId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
                     UsuarioId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    CPF = table.Column<string>(type: "char(14)", maxLength: 14, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Apagado = table.Column<bool>(type: "bit", nullable: false)
@@ -474,9 +446,6 @@ namespace QueCapricho.Infra.Data.Migrations
                 name: "EncomendaProdutos");
 
             migrationBuilder.DropTable(
-                name: "Enderecos");
-
-            migrationBuilder.DropTable(
                 name: "Estoques");
 
             migrationBuilder.DropTable(
@@ -493,9 +462,6 @@ namespace QueCapricho.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Saidas");
-
-            migrationBuilder.DropTable(
-                name: "Telefones");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

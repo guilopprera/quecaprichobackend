@@ -10,6 +10,7 @@ using QueCapricho.Domain.Interfaces.Repositories;
 using QueCapricho.Infra.Data.Context;
 using QueCapricho.Infra.Data.Repositories;
 using QueCapricho.Service.Api.Configurations;
+using System.Text.Json;
 
 namespace QueCapricho.Service.Api
 {
@@ -33,7 +34,7 @@ namespace QueCapricho.Service.Api
                     });
             });
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt=> opt.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 
             services.AddDbContext<MeuContexto>(opt =>
@@ -55,8 +56,6 @@ namespace QueCapricho.Service.Api
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<ITelefoneAppService, TelefoneAppService>();
-            services.AddScoped<ITelefoneRepository, TelefoneRepository>();
         }
 
 

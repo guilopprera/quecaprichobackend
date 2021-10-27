@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace QueCapricho.Service.Api.Controllers
 {
-    [DisableCors]
     [ApiController]
     [Route("api/categoriaproduto")]
     public class CategoriaProdutoController : Controller

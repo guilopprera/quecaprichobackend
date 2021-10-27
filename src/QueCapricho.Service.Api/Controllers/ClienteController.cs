@@ -27,7 +27,7 @@ namespace QueCapricho.Service.Api.Controllers
         [Route("Alterar")]
         public void Alterar([FromBody] Cliente cliente)
         {
-            _clienteAppService.Adicionar(cliente);
+            _clienteAppService.Alterar(cliente);
         }
 
         [HttpPost]
