@@ -30,7 +30,7 @@ namespace QueCapricho.Infra.Data.Repositories
             produtoDb.Nome = produto.Nome;
             produtoDb.Valor = produto.Valor;
 
-            _context.Entry(produto).State = EntityState.Modified;
+            _context.Entry(produtoDb).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -57,14 +57,14 @@ namespace QueCapricho.Infra.Data.Repositories
         public Produto Obter(int produtoId)
         {
             return _context.Produtos
-                .Include(p => p.ProdutoFotos)
+            .Include("CategoriaProduto")
                 .FirstOrDefault(p => p.ProdutoId == produtoId);
         }
 
         public List<Produto> ObterTodos()
         {
             return _context.Produtos
-                .Include(p => p.CategoriaProduto)
+            .Include("CategoriaProduto")
                 .ToList();
         }
 

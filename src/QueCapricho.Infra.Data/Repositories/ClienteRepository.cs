@@ -29,9 +29,8 @@ namespace QueCapricho.Infra.Data.Repositories
             clienteDb.Nome = cliente.Nome;
             clienteDb.Email = cliente.Email;
             clienteDb.CPF = cliente.CPF;
-            clienteDb.Endereco = cliente.Endereco;
-            clienteDb.TelefoneCelular = cliente.TelefoneCelular;
-            clienteDb.TelefoneFixo = cliente.TelefoneFixo;
+            clienteDb.Enderecos = cliente.Enderecos;
+            clienteDb.Telefones = cliente.Telefones;
 
             _context.Entry(clienteDb).State = EntityState.Modified;
             _context.SaveChanges();

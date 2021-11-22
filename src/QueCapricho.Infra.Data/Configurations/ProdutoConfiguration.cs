@@ -8,12 +8,12 @@ namespace QueCapricho.Infra.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.HasKey(c => c.ProdutoId);
-            builder.Property(c => c.ProdutoId).ValueGeneratedOnAdd();
-            builder.Property(c => c.Nome).HasMaxLength(100).IsRequired();
-            builder.Property(c => c.Valor).IsRequired().HasPrecision(10, 2);
-            builder.Property(c => c.Ativo).IsRequired();
-            builder.Property(c => c.Apagado).IsRequired();
+            builder.HasKey(p => p.ProdutoId);
+            builder.Property(p => p.ProdutoId).ValueGeneratedOnAdd();
+            builder.Property(p => p.Nome).HasMaxLength(100).IsRequired();
+            builder.Property(p => p.Valor).IsRequired().HasPrecision(10, 2);
+            builder.Property(p => p.Ativo).IsRequired();
+            builder.Property(p => p.Apagado).IsRequired();
             builder.Ignore(p => p.ProdutoFotos);
         }
     }

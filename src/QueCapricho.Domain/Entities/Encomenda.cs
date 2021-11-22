@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QueCapricho.Domain.Enums;
 
 namespace QueCapricho.Domain.Entities
 {
@@ -10,6 +11,7 @@ namespace QueCapricho.Domain.Entities
         public DateTime DataEncomenda { get; set; }
         public DateTime DataEntrega { get; set; }
         public decimal Valor { get; set; }
+        public FormaPagamentoEnum FormaPagamento { get; set; }
         public bool Ativo { get; set; }
         public bool Cancelado { get; set; }
         public bool Apagado { get; set; }

@@ -27,7 +27,7 @@ namespace QueCapricho.Service.Api.Controllers
         [Route("Alterar")]
         public void Alterar([FromBody] CategoriaProduto categoriaProduto)
         {
-            _categoriaProdutoAppService.Adicionar(categoriaProduto);
+            _categoriaProdutoAppService.Alterar(categoriaProduto);
         }
 
         [HttpPost]

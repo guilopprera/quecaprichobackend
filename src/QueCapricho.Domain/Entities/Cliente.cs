@@ -9,8 +9,7 @@ namespace QueCapricho.Domain.Entities
         public string CPF { get; set; }
         public string Email { get; set; }
         public bool Apagado { get; set; }
-        public string Endereco { get; set; }
-        public string TelefoneCelular { get; set; }
-        public string TelefoneFixo { get; set; }
+        public List<Endereco> Enderecos { get; set; }
+        public List<Telefone> Telefones { get; set; }
     }
 }

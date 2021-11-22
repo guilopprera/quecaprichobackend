@@ -11,14 +11,13 @@ namespace QueCapricho.Application.Services
     {
         private readonly IAuthRepository _authRepository;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        //private readonly SignInManager<IdentityUser> _signInManager;
         public AuthAppService(IAuthRepository authRepository,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<IdentityUser> userManager)
         {
             _authRepository = authRepository;
             _userManager = userManager;
-            _signInManager = signInManager;
+            //_signInManager = signInManager;
         }
 
         public async Task<UsuarioLoginResult> Cadastrar(Usuario usuario)
@@ -34,7 +33,9 @@ namespace QueCapricho.Application.Services
             var result = await _userManager.CreateAsync(identityUser, identityUser.PasswordHash);
 
             if (result.Succeeded)
-                await _signInManager.SignInAsync(identityUser, isPersistent: false);
+                return null;
+
+            //await _signInManager.SignInAsync(identityUser, isPersistent: false);
 
             _authRepository.Cadastrar(usuario);
 
@@ -51,7 +52,7 @@ namespace QueCapricho.Application.Services
                 return null;
 
             var userIdentity = new IdentityUser { UserName = usuarioBd.Nome, Email = usuario.Email, PasswordHash = usuario.Senha };
-            await _signInManager.SignInAsync(userIdentity, isPersistent: false);
+            //await _signInManager.SignInAsync(userIdentity, isPersistent: false);
 
             return new UsuarioLoginResult(usuarioBd, userIdentity);
         }
