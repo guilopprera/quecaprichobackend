@@ -56,6 +56,9 @@ namespace QueCapricho.Service.Api
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFluxoCaixaAppService, FluxoCaixaAppService>();
+            services.AddScoped<IFluxoCaixaRepository, FluxoCaixaRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
         }
 
 

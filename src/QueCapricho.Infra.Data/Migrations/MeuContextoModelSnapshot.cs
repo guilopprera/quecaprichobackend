@@ -258,27 +258,11 @@ namespace QueCapricho.Infra.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<string>("TelefoneCelular")
-                        .HasMaxLength(15)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(15)");
-
-                    b.Property<string>("TelefoneFixo")
-                        .HasMaxLength(14)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(14)");
 
                     b.HasKey("ClienteId");
 
@@ -309,6 +293,9 @@ namespace QueCapricho.Infra.Data.Migrations
 
                     b.Property<DateTime>("DataEntrega")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("FormaPagamento")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
                         .HasPrecision(10, 2)
@@ -344,6 +331,31 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.ToTable("EncomendaProdutos");
                 });
 
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Apagado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("EnderecoId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Endereco");
+                });
+
             modelBuilder.Entity("QueCapricho.Domain.Entities.Estoque", b =>
                 {
                     b.Property<int>("EstoqueId")
@@ -360,6 +372,34 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.HasKey("EstoqueId");
 
                     b.ToTable("Estoques");
+                });
+
+            modelBuilder.Entity("QueCapricho.Domain.Entities.FluxoCaixa", b =>
+                {
+                    b.Property<int>("FluxoCaixaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Apagado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("FluxoCaixaId");
+
+                    b.ToTable("FluxoCaixa");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Foto", b =>
@@ -464,9 +504,9 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.ToTable("ProdutoFotos");
                 });
 
-            modelBuilder.Entity("QueCapricho.Domain.Entities.Saida", b =>
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Telefone", b =>
                 {
-                    b.Property<int>("SaidaId")
+                    b.Property<int>("TelefoneId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -474,37 +514,19 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.Property<bool>("Apagado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("DataSaida")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EncomendaId")
+                    b.Property<int?>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Observacao")
+                    b.Property<string>("Numero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
-                    b.HasKey("SaidaId");
+                    b.HasKey("TelefoneId");
 
-                    b.ToTable("Saidas");
-                });
+                    b.HasIndex("ClienteId");
 
-            modelBuilder.Entity("QueCapricho.Domain.Entities.SaidaProduto", b =>
-                {
-                    b.Property<int>("SaidaProdutoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SaidaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SaidaProdutoId");
-
-                    b.ToTable("SaidaProdutos");
+                    b.ToTable("Telefone");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Usuario", b =>
@@ -613,6 +635,15 @@ namespace QueCapricho.Infra.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Endereco", b =>
+                {
+                    b.HasOne("QueCapricho.Domain.Entities.Cliente", null)
+                        .WithMany("Enderecos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("QueCapricho.Domain.Entities.Produto", b =>
                 {
                     b.HasOne("QueCapricho.Domain.Entities.CategoriaProduto", "CategoriaProduto")
@@ -633,6 +664,20 @@ namespace QueCapricho.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Foto");
+                });
+
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Telefone", b =>
+                {
+                    b.HasOne("QueCapricho.Domain.Entities.Cliente", null)
+                        .WithMany("Telefones")
+                        .HasForeignKey("ClienteId");
+                });
+
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Cliente", b =>
+                {
+                    b.Navigation("Enderecos");
+
+                    b.Navigation("Telefones");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Encomenda", b =>

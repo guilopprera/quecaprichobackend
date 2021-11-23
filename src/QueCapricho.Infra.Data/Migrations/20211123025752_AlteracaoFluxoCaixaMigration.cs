@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QueCapricho.Infra.Data.Migrations
 {
-    public partial class migrationAlteracaoClienteTelefone : Migration
+    public partial class AlteracaoFluxoCaixaMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,10 +69,7 @@ namespace QueCapricho.Infra.Data.Migrations
                     Nome = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     CPF = table.Column<string>(type: "varchar(14)", unicode: false, maxLength: 14, nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    Apagado = table.Column<bool>(type: "bit", nullable: false),
-                    Endereco = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    TelefoneCelular = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true),
-                    TelefoneFixo = table.Column<string>(type: "varchar(14)", unicode: false, maxLength: 14, nullable: true)
+                    Apagado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,6 +88,23 @@ namespace QueCapricho.Infra.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estoques", x => x.EstoqueId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FluxoCaixa",
+                columns: table => new
+                {
+                    FluxoCaixaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apagado = table.Column<bool>(type: "bit", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FluxoCaixa", x => x.FluxoCaixaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,36 +137,6 @@ namespace QueCapricho.Infra.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.LogId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SaidaProdutos",
-                columns: table => new
-                {
-                    SaidaProdutoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SaidaId = table.Column<int>(type: "int", nullable: false),
-                    ProdutoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SaidaProdutos", x => x.SaidaProdutoId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Saidas",
-                columns: table => new
-                {
-                    SaidaId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EncomendaId = table.Column<int>(type: "int", nullable: false),
-                    DataSaida = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Observacao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apagado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Saidas", x => x.SaidaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -311,6 +295,7 @@ namespace QueCapricho.Infra.Data.Migrations
                     DataEncomenda = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    FormaPagamento = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Cancelado = table.Column<bool>(type: "bit", nullable: false),
                     Apagado = table.Column<bool>(type: "bit", nullable: false)
@@ -324,6 +309,48 @@ namespace QueCapricho.Infra.Data.Migrations
                         principalTable: "Clientes",
                         principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Endereco",
+                columns: table => new
+                {
+                    EnderecoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Apagado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Endereco", x => x.EnderecoId);
+                    table.ForeignKey(
+                        name: "FK_Endereco_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "ClienteId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Telefone",
+                columns: table => new
+                {
+                    TelefoneId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Numero = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    Apagado = table.Column<bool>(type: "bit", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Telefone", x => x.TelefoneId);
+                    table.ForeignKey(
+                        name: "FK_Telefone_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "ClienteId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -415,6 +442,11 @@ namespace QueCapricho.Infra.Data.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Endereco_ClienteId",
+                table: "Endereco",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProdutoFotos_FotoId",
                 table: "ProdutoFotos",
                 column: "FotoId");
@@ -423,6 +455,11 @@ namespace QueCapricho.Infra.Data.Migrations
                 name: "IX_Produtos_CategoriaProdutoId",
                 table: "Produtos",
                 column: "CategoriaProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Telefone_ClienteId",
+                table: "Telefone",
+                column: "ClienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -446,7 +483,13 @@ namespace QueCapricho.Infra.Data.Migrations
                 name: "EncomendaProdutos");
 
             migrationBuilder.DropTable(
+                name: "Endereco");
+
+            migrationBuilder.DropTable(
                 name: "Estoques");
+
+            migrationBuilder.DropTable(
+                name: "FluxoCaixa");
 
             migrationBuilder.DropTable(
                 name: "Logs");
@@ -458,10 +501,7 @@ namespace QueCapricho.Infra.Data.Migrations
                 name: "Produtos");
 
             migrationBuilder.DropTable(
-                name: "SaidaProdutos");
-
-            migrationBuilder.DropTable(
-                name: "Saidas");
+                name: "Telefone");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

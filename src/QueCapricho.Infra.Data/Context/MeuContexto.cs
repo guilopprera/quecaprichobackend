@@ -18,8 +18,7 @@ namespace QueCapricho.Infra.Data.Context
         public DbSet<Log> Logs { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<ProdutoFoto> ProdutoFotos { get; set; }
-        public DbSet<Saida> Saidas { get; set; }
-        public DbSet<SaidaProduto> SaidaProdutos { get; set; }
+        public DbSet<FluxoCaixa> FluxoCaixa{ get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,8 +34,7 @@ namespace QueCapricho.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new LogConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoFotoConfiguration());
-            modelBuilder.ApplyConfiguration(new SaidaConfiguration());
-            modelBuilder.ApplyConfiguration(new SaidaProdutoConfiguration());
+            modelBuilder.ApplyConfiguration(new FluxoCaixaConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             #endregion
             base.OnModelCreating(modelBuilder);
