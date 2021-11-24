@@ -48,7 +48,11 @@ namespace QueCapricho.Infra.Data.Repositories
 
         public Cliente Obter(int clienteId)
         {
-            return _context.Clientes.FirstOrDefault(c => c.ClienteId == clienteId);
+            return _context.Clientes
+                .Where(c => c.ClienteId == clienteId)
+                .Include("Enderecos")
+                .Include("Telefones")
+                .FirstOrDefault();
         }
 
         public List<Cliente> ObterTodos()

@@ -8,10 +8,10 @@ namespace QueCapricho.Infra.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Telefone> builder)
         {
-            builder.HasKey(c => c.TelefoneId);
-            builder.Property(c => c.TelefoneId).ValueGeneratedOnAdd();
-            builder.Property(c => c.Numero).HasMaxLength(14).IsRequired();
-            builder.Property(c => c.Apagado).IsRequired();
+            builder.HasKey(t => t.TelefoneId);
+            builder.Property(t => t.TelefoneId).ValueGeneratedOnAdd();
+            builder.Property(t => t.Numero).HasMaxLength(15).IsRequired();
+            builder.Property(t => t.Apagado).IsRequired();
         }
     }
 }

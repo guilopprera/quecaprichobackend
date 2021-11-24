@@ -29,6 +29,8 @@ namespace QueCapricho.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ClienteConfiguration());
             modelBuilder.ApplyConfiguration(new EncomendaConfiguration());
             modelBuilder.ApplyConfiguration(new EncomendaProdutoConfiguration());
+            modelBuilder.ApplyConfiguration(new EnderecoConfiguration());
+            modelBuilder.ApplyConfiguration(new TelefoneConfiguration());
             modelBuilder.ApplyConfiguration(new EstoqueConfiguration());
             modelBuilder.ApplyConfiguration(new FotoConfiguration());
             modelBuilder.ApplyConfiguration(new LogConfiguration());

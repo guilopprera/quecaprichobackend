@@ -4,7 +4,7 @@ using QueCapricho.Domain.Entities;
 
 namespace QueCapricho.Infra.Data.Configurations
 {
-    public class EnderecoConfiguration: IEntityTypeConfiguration<Endereco>
+    public class EnderecoConfiguration : IEntityTypeConfiguration<Endereco>
     {
         public void Configure(EntityTypeBuilder<Endereco> builder)
         {
