@@ -1,6 +1,7 @@
 ﻿using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
 using QueCapricho.Domain.Interfaces.Repositories;
+using QueCapricho.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -15,12 +16,12 @@ namespace QueCapricho.Application.Services
             _fluxoCaixaRepository = fluxoCaixaRepository;
         }
 
-        public void Adicionar(FluxoCaixa fluxoCaixa)
+        public FluxoCaixa Adicionar(FluxoCaixa fluxoCaixa)
         {
             if (fluxoCaixa == null)
-                return;
+                return null;
 
-            _fluxoCaixaRepository.Adicionar(fluxoCaixa);
+            return _fluxoCaixaRepository.Adicionar(fluxoCaixa);
         }
 
         public void Alterar(FluxoCaixa fluxoCaixa)
@@ -52,9 +53,9 @@ namespace QueCapricho.Application.Services
             return _fluxoCaixaRepository.ObterTodos();
         }
 
-        public List<FluxoCaixa> Pesquisar(DateTime dataInicial, DateTime dataFinal, string descricao)
+        public List<FluxoCaixa> Pesquisar(FluxoCaixaRequest fluxoCaixa)
         {
-            return _fluxoCaixaRepository.Pesquisar(dataInicial, dataFinal, descricao);
+            return _fluxoCaixaRepository.Pesquisar(fluxoCaixa);
         }
     }
 }
