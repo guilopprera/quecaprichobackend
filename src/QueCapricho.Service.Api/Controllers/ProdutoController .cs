@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace QueCapricho.Service.Api.Controllers
 {
@@ -9,15 +12,17 @@ namespace QueCapricho.Service.Api.Controllers
     [Route("api/produto")]
     public class ProdutoController : Controller
     {
+        private readonly IHostingEnvironment _hostingEnv;
         private readonly IProdutoAppService _produtoAppService;
-        public ProdutoController(IProdutoAppService produtoAppService)
+        public ProdutoController(IProdutoAppService produtoAppService, IHostingEnvironment hostingEnv)
         {
             _produtoAppService = produtoAppService;
+            _hostingEnv = hostingEnv;
         }
 
         [HttpPost]
         [Route("Adicionar")]
-        public void Adicionar([FromBody] Produto produto)
+        public async Task AdicionarAsync([FromBody] Produto produto)
         {
             _produtoAppService.Adicionar(produto);
         }
@@ -27,13 +32,6 @@ namespace QueCapricho.Service.Api.Controllers
         public void Alterar([FromBody] Produto produto)
         {
             _produtoAppService.Alterar(produto);
-        }
-
-        [HttpPost]
-        [Route("AlterarEstoque")]
-        public void Alterar([FromBody] Estoque estoque)
-        {
-            _produtoAppService.AlterarEstoque(estoque);
         }
 
         [HttpPost]

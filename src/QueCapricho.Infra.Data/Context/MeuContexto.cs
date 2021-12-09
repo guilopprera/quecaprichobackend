@@ -13,7 +13,6 @@ namespace QueCapricho.Infra.Data.Context
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Encomenda> Encomendas { get; set; }
         public DbSet<EncomendaProduto> EncomendaProdutos { get; set; }
-        public DbSet<Estoque> Estoques { get; set; }
         public DbSet<Foto> Fotos { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Produto> Produtos { get; set; }
@@ -31,8 +30,6 @@ namespace QueCapricho.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new EncomendaProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new EnderecoConfiguration());
             modelBuilder.ApplyConfiguration(new TelefoneConfiguration());
-            modelBuilder.ApplyConfiguration(new EstoqueConfiguration());
-            modelBuilder.ApplyConfiguration(new FotoConfiguration());
             modelBuilder.ApplyConfiguration(new LogConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoFotoConfiguration());

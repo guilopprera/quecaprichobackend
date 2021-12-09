@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
+using QueCapricho.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -18,9 +19,9 @@ namespace QueCapricho.Service.Api.Controllers
 
         [HttpPost]
         [Route("Adicionar")]
-        public void Adicionar([FromBody] FluxoCaixa fluxoCaixa)
+        public FluxoCaixa Adicionar([FromBody] FluxoCaixa fluxoCaixa)
         {
-            _fluxoCaixaAppService.Adicionar(fluxoCaixa);
+            return _fluxoCaixaAppService.Adicionar(fluxoCaixa);
         }
 
         [HttpPost]
@@ -53,9 +54,9 @@ namespace QueCapricho.Service.Api.Controllers
 
         [HttpPost]
         [Route("Pesquisar")]
-        public ActionResult<List<FluxoCaixa>> Pesquisar(DateTime dataInicial, DateTime dataFinal, string descricao)
+        public ActionResult<List<FluxoCaixa>> Pesquisar(FluxoCaixaRequest fluxoCaixa)
         {
-            return _fluxoCaixaAppService.Pesquisar(dataInicial, dataFinal, descricao);
+            return _fluxoCaixaAppService.Pesquisar(fluxoCaixa);
         }
     }
 }

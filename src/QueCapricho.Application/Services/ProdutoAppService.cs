@@ -1,17 +1,24 @@
-﻿using QueCapricho.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
+using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
-using System.Collections.Generic;
 using QueCapricho.Domain.Interfaces.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QueCapricho.Application.Services
 {
     public class ProdutoAppService : IProdutoAppService
     {
         private readonly IProdutoRepository _produtoRepository;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ILogRepository _logRepository;
 
-        public ProdutoAppService(IProdutoRepository produtoRepository)
+        public ProdutoAppService(IProdutoRepository produtoRepository, UserManager<IdentityUser> userManager, ILogRepository logRepository)
         {
             _produtoRepository = produtoRepository;
+            _userManager = userManager;
+            _logRepository = logRepository;
         }
 
         public void Adicionar(Produto produto)
@@ -20,6 +27,12 @@ namespace QueCapricho.Application.Services
                 return;
 
             _produtoRepository.Adicionar(produto);
+
+            var log = new Log();
+            log.UsuarioId = _userManager.Users.First().Id;
+            log.Evento = "Produto - Adição ID: " + produto.ProdutoId;
+            log.DataLog = DateTime.Now;
+            _logRepository.AdicionarAsync(log);
         }
 
         public void Alterar(Produto produto)
@@ -28,14 +41,12 @@ namespace QueCapricho.Application.Services
                 return;
 
             _produtoRepository.Alterar(produto);
-        }
 
-        public void AlterarEstoque(Estoque estoque)
-        {
-            if (estoque == null || estoque.ProdutoId == 0)
-                return;
-
-            _produtoRepository.AlterarEstoque(estoque);
+            var log = new Log();
+            log.UsuarioId = _userManager.Users.First().Id;
+            log.Evento = "Produto - Alteração ID: " + produto.ProdutoId;
+            log.DataLog = DateTime.Now;
+            _logRepository.AdicionarAsync(log);
         }
 
         public void Remover(int produtoId)
@@ -44,6 +55,11 @@ namespace QueCapricho.Application.Services
                 return;
 
             _produtoRepository.Remover(produtoId);
+
+            var log = new Log();
+            log.UsuarioId = _userManager.Users.First().Id;
+            log.Evento = "Produto - Remoção ID: " + produtoId;
+            _logRepository.AdicionarAsync(log);
         }
 
         public Produto Obter(int produtoId)

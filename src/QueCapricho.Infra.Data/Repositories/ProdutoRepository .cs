@@ -34,16 +34,6 @@ namespace QueCapricho.Infra.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void AlterarEstoque(Estoque estoque)
-        {
-            var estoqueProdutoDb = _context.Estoques.FirstOrDefault(e => e.ProdutoId == estoque.ProdutoId);
-
-            estoqueProdutoDb.Quantidade = estoque.Quantidade;
-
-            _context.Entry(estoqueProdutoDb).State = EntityState.Modified;
-            _context.SaveChanges();
-        }
-
         public void Remover(int produtoId)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
@@ -58,6 +48,7 @@ namespace QueCapricho.Infra.Data.Repositories
         {
             return _context.Produtos
             .Include("CategoriaProduto")
+            .Include("ProdutoFoto")
                 .FirstOrDefault(p => p.ProdutoId == produtoId);
         }
 
@@ -65,6 +56,8 @@ namespace QueCapricho.Infra.Data.Repositories
         {
             return _context.Produtos
             .Include("CategoriaProduto")
+            .Include("ProdutoFoto")
+                .Where(p => !p.Apagado)
                 .ToList();
         }
 

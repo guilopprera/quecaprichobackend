@@ -7,7 +7,6 @@ namespace QueCapricho.Application.Interfaces
     {
         void Adicionar(Produto produto);
         void Alterar(Produto produto);
-        void AlterarEstoque(Estoque estoque);
         void Remover(int produtoId);
         Produto Obter(int produtoId);
         List<Produto> ObterTodos();

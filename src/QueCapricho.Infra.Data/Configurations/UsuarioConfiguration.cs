@@ -14,8 +14,6 @@ namespace QueCapricho.Infra.Data.Configurations
             builder.Property(c => c.CPF).HasColumnType("char(14)").HasMaxLength(14).IsRequired();
             builder.Property(c => c.Email).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Senha).HasMaxLength(100).IsRequired();
-
-            //builder.HasData(new Usuario { UsuarioId = 12213214, Nome = "Renata", Email = "re-natalopes@hotmail.com", Senha = "91853057", CPF = "6600074884", Apagado = false });
         }
     }
 }

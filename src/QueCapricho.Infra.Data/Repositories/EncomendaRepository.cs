@@ -18,6 +18,7 @@ namespace QueCapricho.Infra.Data.Repositories
         }
         public void Adicionar(Encomenda encomenda)
         {
+            encomenda.Ativo = true;
             _context.Encomendas.Add(encomenda);
             _context.SaveChanges();
         }
@@ -28,7 +29,7 @@ namespace QueCapricho.Infra.Data.Repositories
 
             encomendaDb.DataEntrega = encomenda.DataEntrega;
             encomendaDb.ClienteId = encomenda.ClienteId;
-            encomendaDb.ClienteId = encomenda.ClienteId;
+            encomendaDb.ListaEncomendaProduto = encomenda.ListaEncomendaProduto;
             encomendaDb.Valor = encomenda.Valor;
 
             _context.Entry(encomendaDb).State = EntityState.Modified;
@@ -57,16 +58,21 @@ namespace QueCapricho.Infra.Data.Repositories
 
         public Encomenda Obter(int encomendaId)
         {
-            return _context.Encomendas.FirstOrDefault(e => e.EncomendaId == encomendaId);
+            return _context.Encomendas
+                .Include("Cliente")
+                .Include("ListaEncomendaProduto.Produto")
+                .FirstOrDefault(e => e.EncomendaId == encomendaId);
         }
 
         public List<Encomenda> ObterTodos()
         {
-            return _context.Encomendas
-                .Include(e => e.Cliente)
-                .Include(e => e.ListaEncomendaProduto)
-                .Where(e => !e.Apagado)
+
+            var lista = _context.Encomendas
+                .Include("Cliente")
+                .Include("ListaEncomendaProduto.Produto")
                 .ToList();
+
+            return lista;
         }
     }
 }

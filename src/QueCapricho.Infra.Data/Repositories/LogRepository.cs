@@ -18,7 +18,7 @@ namespace QueCapricho.Infra.Data.Repositories
         public void AdicionarAsync(Log log)
         {
             _context.Logs.Add(log);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public List<Log> ObterTodos()

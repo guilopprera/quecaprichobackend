@@ -10,8 +10,8 @@ using QueCapricho.Infra.Data.Context;
 namespace QueCapricho.Infra.Data.Migrations
 {
     [DbContext(typeof(MeuContexto))]
-    [Migration("20211123025752_AlteracaoFluxoCaixaMigration")]
-    partial class AlteracaoFluxoCaixaMigration
+    [Migration("20211209215235_final")]
+    partial class final
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -312,12 +312,12 @@ namespace QueCapricho.Infra.Data.Migrations
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.EncomendaProduto", b =>
                 {
-                    b.Property<int>("EncomendaId")
+                    b.Property<int>("EncomendaProdutoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EncomendaId1")
+                    b.Property<int>("EncomendaId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProdutoId")
@@ -326,9 +326,11 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.HasKey("EncomendaId");
+                    b.HasKey("EncomendaProdutoId");
 
-                    b.HasIndex("EncomendaId1");
+                    b.HasIndex("EncomendaId");
+
+                    b.HasIndex("ProdutoId");
 
                     b.ToTable("EncomendaProdutos");
                 });
@@ -356,24 +358,6 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Endereco");
-                });
-
-            modelBuilder.Entity("QueCapricho.Domain.Entities.Estoque", b =>
-                {
-                    b.Property<int>("EstoqueId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
-
-                    b.HasKey("EstoqueId");
-
-                    b.ToTable("Estoques");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.FluxoCaixa", b =>
@@ -415,9 +399,7 @@ namespace QueCapricho.Infra.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FotoId");
 
@@ -434,15 +416,11 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.Property<DateTime>("DataLog")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Entidade")
+                    b.Property<string>("Evento")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EstoqueId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Evento")
-                        .IsRequired()
+                    b.Property<string>("UsuarioId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ValorAntigo")
@@ -468,9 +446,6 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.Property<bool>("Apagado")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
                     b.Property<int>("CategoriaProdutoId")
                         .HasColumnType("int");
 
@@ -492,16 +467,24 @@ namespace QueCapricho.Infra.Data.Migrations
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.ProdutoFoto", b =>
                 {
+                    b.Property<int>("ProdutoFotoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<bool>("Apagado")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FotoId")
-                        .HasColumnType("int");
+                    b.Property<string>("NomeFoto")
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
-                    b.HasIndex("FotoId");
+                    b.HasKey("ProdutoFotoId");
+
+                    b.HasIndex("ProdutoId")
+                        .IsUnique();
 
                     b.ToTable("ProdutoFotos");
                 });
@@ -516,13 +499,13 @@ namespace QueCapricho.Infra.Data.Migrations
                     b.Property<bool>("Apagado")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<string>("Numero")
                         .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("TelefoneId");
 
@@ -632,9 +615,17 @@ namespace QueCapricho.Infra.Data.Migrations
                 {
                     b.HasOne("QueCapricho.Domain.Entities.Encomenda", null)
                         .WithMany("ListaEncomendaProduto")
-                        .HasForeignKey("EncomendaId1")
+                        .HasForeignKey("EncomendaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("QueCapricho.Domain.Entities.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Endereco", b =>
@@ -659,20 +650,20 @@ namespace QueCapricho.Infra.Data.Migrations
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.ProdutoFoto", b =>
                 {
-                    b.HasOne("QueCapricho.Domain.Entities.Foto", "Foto")
-                        .WithMany()
-                        .HasForeignKey("FotoId")
+                    b.HasOne("QueCapricho.Domain.Entities.Produto", null)
+                        .WithOne("ProdutoFoto")
+                        .HasForeignKey("QueCapricho.Domain.Entities.ProdutoFoto", "ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Foto");
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Telefone", b =>
                 {
                     b.HasOne("QueCapricho.Domain.Entities.Cliente", null)
                         .WithMany("Telefones")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("QueCapricho.Domain.Entities.Cliente", b =>
@@ -685,6 +676,11 @@ namespace QueCapricho.Infra.Data.Migrations
             modelBuilder.Entity("QueCapricho.Domain.Entities.Encomenda", b =>
                 {
                     b.Navigation("ListaEncomendaProduto");
+                });
+
+            modelBuilder.Entity("QueCapricho.Domain.Entities.Produto", b =>
+                {
+                    b.Navigation("ProdutoFoto");
                 });
 #pragma warning restore 612, 618
         }

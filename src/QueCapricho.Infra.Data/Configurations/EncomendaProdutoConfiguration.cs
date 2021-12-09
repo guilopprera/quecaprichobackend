@@ -8,10 +8,10 @@ namespace QueCapricho.Infra.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<EncomendaProduto> builder)
         {
-            builder.HasKey(c => c.EncomendaId);
-            builder.Property(c => c.EncomendaId).ValueGeneratedOnAdd();
-            builder.Property(c => c.EncomendaId).IsRequired();
-            builder.Property(c => c.ProdutoId).IsRequired();
+            builder.HasKey(ep => ep.EncomendaProdutoId);
+            builder.Property(ep => ep.EncomendaProdutoId).ValueGeneratedOnAdd();
+            builder.Property(ep => ep.EncomendaId).IsRequired();
+            builder.Property(ep => ep.ProdutoId).IsRequired();
         }
     }
 }

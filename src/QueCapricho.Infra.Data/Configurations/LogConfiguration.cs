@@ -13,9 +13,7 @@ namespace QueCapricho.Infra.Data.Configurations
             builder.Property(c => c.ValorAntigo).IsRequired().HasPrecision(10, 2);
             builder.Property(c => c.ValorNovo).IsRequired().HasPrecision(10, 2);
             builder.Property(c => c.DataLog).IsRequired();
-            builder.Property(c => c.Entidade).IsRequired();
             builder.Property(c => c.Evento).IsRequired();
-            builder.Property(c => c.EstoqueId).IsRequired();
         }
     }
 }

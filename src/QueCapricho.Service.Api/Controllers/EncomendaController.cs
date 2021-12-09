@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QueCapricho.Application.Interfaces;
 using QueCapricho.Domain.Entities;
 using System.Collections.Generic;
 
 namespace QueCapricho.Service.Api.Controllers
 {
-    [DisableCors]
     [ApiController]
     [Route("api/encomenda")]
     public class EncomendaController : Controller
@@ -28,7 +26,14 @@ namespace QueCapricho.Service.Api.Controllers
         [Route("Alterar")]
         public void Alterar([FromBody] Encomenda encomenda)
         {
-            _encomendaAppService.Adicionar(encomenda);
+            _encomendaAppService.Alterar(encomenda);
+        }
+
+        [HttpPost]
+        [Route("Finalizar")]
+        public void Finalizar([FromBody] int encomendaId)
+        {
+            _encomendaAppService.Finalizar(encomendaId);
         }
 
         [HttpPost]
@@ -38,12 +43,6 @@ namespace QueCapricho.Service.Api.Controllers
             _encomendaAppService.Remover(encomendaId);
         }
 
-        [HttpPost]
-        [Route("Finalizar")]
-        public void Finalizar([FromBody] int encomendaId)
-        {
-            _encomendaAppService.Finalizar(encomendaId);
-        }
 
         [HttpGet]
         [Route("Obter/{encomendaId}")]

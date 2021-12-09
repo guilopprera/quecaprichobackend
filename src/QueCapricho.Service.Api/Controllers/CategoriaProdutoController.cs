@@ -20,7 +20,7 @@ namespace QueCapricho.Service.Api.Controllers
         [Route("Adicionar")]
         public void Adicionar([FromBody] CategoriaProduto categoriaProduto)
         {
-            _categoriaProdutoAppService.Adicionar(categoriaProduto);
+            _categoriaProdutoAppService.AdicionarAsync(categoriaProduto);
         }
 
         [HttpPost]

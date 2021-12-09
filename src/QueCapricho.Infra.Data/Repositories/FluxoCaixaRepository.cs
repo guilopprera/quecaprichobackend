@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueCapricho.Domain.Entities;
 using QueCapricho.Domain.Interfaces.Repositories;
+using QueCapricho.Domain.ValueObjects;
 using QueCapricho.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,11 @@ namespace QueCapricho.Infra.Data.Repositories
             _context = context;
 
         }
-        public void Adicionar(FluxoCaixa fluxoCaixa)
+        public FluxoCaixa Adicionar(FluxoCaixa fluxoCaixa)
         {
             _context.FluxoCaixa.Add(fluxoCaixa);
             _context.SaveChanges();
+            return fluxoCaixa;
         }
 
         public void Alterar(FluxoCaixa fluxoCaixa)
@@ -54,18 +56,17 @@ namespace QueCapricho.Infra.Data.Repositories
 
         public List<FluxoCaixa> ObterTodos()
         {
-            return _context.FluxoCaixa.Where(fc=> fc.Data.Date == DateTime.Today.Date)
+            return _context.FluxoCaixa.Where(fc => fc.Data.Date == DateTime.Today.Date)
                 .ToList();
         }
 
-        public List<FluxoCaixa> Pesquisar(DateTime dataInicial, DateTime dataFinal, string descricao)
+        public List<FluxoCaixa> Pesquisar(FluxoCaixaRequest fluxoCaixa)
         {
             return _context.FluxoCaixa
                 .Where(fc =>
-                (string.IsNullOrEmpty(descricao) ? fc.FluxoCaixaId > 0 : fc.Descricao.Contains(descricao.Trim()))
-                && dataInicial == DateTime.MinValue ? fc.FluxoCaixaId > 0 : fc.Data.Date > dataInicial.Date
-                && dataFinal == DateTime.MinValue ? fc.FluxoCaixaId > 0 : fc.Data.Date < dataFinal.Date
-                && !fc.Apagado)
+                (fluxoCaixa.DataInicial == DateTime.MinValue ? fc.FluxoCaixaId > 0 : fc.Data.Date >= fluxoCaixa.DataInicial.Date)
+                && (fluxoCaixa.DataFinal == DateTime.MinValue ? fc.FluxoCaixaId > 0 : fc.Data.Date <= fluxoCaixa.DataFinal.Date
+                && !fc.Apagado))
                 .ToList();
         }
     }

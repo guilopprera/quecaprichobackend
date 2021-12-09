@@ -45,6 +45,8 @@ namespace QueCapricho.Service.Api
             services.AddCors();
 
             services.AddScoped<IAuthAppService, AuthAppService>();
+            services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICategoriaProdutoAppService, CategoriaProdutoAppService>();
             services.AddScoped<ICategoriaProdutoRepository, CategoriaProdutoRepository>();

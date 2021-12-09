@@ -8,10 +8,10 @@ namespace QueCapricho.Infra.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProdutoFoto> builder)
         {
-            builder.HasNoKey();
-            builder.Property(c => c.FotoId).IsRequired();
+            builder.HasKey(p=> p.ProdutoFotoId);
+            builder.Property(p=> p.ProdutoFotoId).ValueGeneratedOnAdd();
             builder.Property(c => c.ProdutoId).IsRequired();
-            builder.Property(c => c.ProdutoId).IsRequired();
+            builder.Property(c => c.NomeFoto).HasColumnType("varchar(100)");
         }
     }
 }
